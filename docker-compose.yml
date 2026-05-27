@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  bot:
+    build: .
+    container_name: parguszv1
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+      - /app/node_modules  # node_modules varsa yoksay
+      - /app/__pycache__  # pycache yoksay

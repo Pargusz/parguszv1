@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>parguszv1 — Music Dashboard</title>
+  <meta name="description" content="parguszv1 Discord Music Bot — Web Dashboard. Control your music bot from your browser." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/dashboard.css" />
+</head>
+<body>
+  <!-- ── Animated Background ───────────────────────────── -->
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- ── Header ────────────────────────────────────────── -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-icon">🎵</div>
+        <span class="logo-text">parguszv1</span>
+        <span class="logo-badge">Dashboard</span>
+      </div>
+      <div class="header-stats">
+        <div class="stat-chip" id="latency-chip">
+          <span class="dot green"></span>
+          <span id="latency-val">— ms</span>
+        </div>
+        <div class="stat-chip">
+          <span id="guild-count">— sunucu</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Main Content ───────────────────────────────────── -->
+  <main class="main">
+
+    <!-- No data state -->
+    <div class="empty-state" id="empty-state" style="display:none">
+      <div class="empty-icon">🤖</div>
+      <h2>Bot hiçbir sunucuda aktif değil</h2>
+      <p>Bot'u sunucuna ekle ve ses kanalında müzik çal.</p>
+    </div>
+
+    <!-- Guild cards -->
+    <div class="guilds-grid" id="guilds-grid"></div>
+  </main>
+
+  <!-- ── Queue Modal ────────────────────────────────────── -->
+  <div class="modal-overlay" id="queue-modal" style="display:none">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>📋 Kuyruk</h2>
+        <button class="modal-close" id="modal-close">✕</button>
+      </div>
+      <div class="modal-body" id="modal-queue-body">
+        <p class="muted">Yükleniyor...</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/dashboard.js"></script>
+</body>
+</html>
