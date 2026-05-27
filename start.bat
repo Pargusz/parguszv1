@@ -2,20 +2,12 @@
 title parguszv1 Music Bot
 color 0A
 SET PYTHONUTF8=1
-SET PATH=%PATH%;C:\ffmpeg\bin
 
 echo.
 echo  ==========================================
 echo   parguszv1 - Discord Music Bot
 echo  ==========================================
 echo.
-
-SET PYTHON=C:\Users\gundu\AppData\Local\Programs\Python\Python312\python.exe
-SET PIP=C:\Users\gundu\AppData\Local\Programs\Python\Python312\Scripts\pip.exe
-SET FFMPEG=C:\ffmpeg\bin
-
-:: PATH'e ekle
-SET PATH=%PATH%;%FFMPEG%;C:\Users\gundu\AppData\Local\Programs\Python\Python312;C:\Users\gundu\AppData\Local\Programs\Python\Python312\Scripts
 
 :: .env kontrolü
 if not exist ".env" (
@@ -24,9 +16,28 @@ if not exist ".env" (
     exit /b 1
 )
 
+:: Python kontrolü
+where python >nul 2>&1
+if %errorlevel% equ 0 (
+    SET PYTHON=python
+) else (
+    where py >nul 2>&1
+    if %errorlevel% equ 0 (
+        SET PYTHON=py
+    ) else (
+        echo [HATA] Python bulunamadi! Lutfen Python yukleyin ve PATH'e ekleyin.
+        pause
+        exit /b 1
+    )
+)
+
 :: FFmpeg kontrolü
+SET FFMPEG=C:\ffmpeg\bin
 if not exist "%FFMPEG%\ffmpeg.exe" (
-    echo [UYARI] FFmpeg bulunamadi: %FFMPEG%
+    echo [UYARI] FFmpeg C:\ffmpeg\bin altinda bulunamadi.
+    echo Sistem PATH'indeki FFmpeg kullanilmaya calisilacak.
+) else (
+    SET PATH=%PATH%;%FFMPEG%
 )
 
 echo.
