@@ -20,16 +20,39 @@ if not exist ".env" (
 where python >nul 2>&1
 if %errorlevel% equ 0 (
     SET PYTHON=python
-) else (
-    where py >nul 2>&1
-    if %errorlevel% equ 0 (
-        SET PYTHON=py
-    ) else (
-        echo [HATA] Python bulunamadi! Lutfen Python yukleyin ve PATH'e ekleyin.
-        pause
-        exit /b 1
+    goto python_found
+)
+
+where py >nul 2>&1
+if %errorlevel% equ 0 (
+    SET PYTHON=py
+    goto python_found
+)
+
+:: Local AppData (Kullanıcı klasörü altındaki varsayılan konum)
+if exist "%LocalAppData%\Programs\Python" (
+    for /d %%d in ("%LocalAppData%\Programs\Python\Python*") do (
+        if exist "%%d\python.exe" (
+            SET PYTHON=%%d\python.exe
+            goto python_found
+        )
     )
 )
+
+:: Program Files (Sistem geneli varsayılan konum)
+for /d %%d in ("C:\Program Files\Python*") do (
+    if exist "%%d\python.exe" (
+        SET PYTHON=%%d\python.exe
+        goto python_found
+    )
+)
+
+echo [HATA] Python bulunamadi! Lutfen Python yukleyin ve PATH'e ekleyin.
+pause
+exit /b 1
+
+:python_found
+echo [*] Bulunan Python: %PYTHON%
 
 :: FFmpeg kontrolü
 SET FFMPEG=C:\ffmpeg\bin
